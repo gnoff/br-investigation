@@ -4,7 +4,7 @@
 When using brotli compression RSC stream responses are being processed later than they should be. The final streamed bytes have been confirmed to be the same so the next most likely cause is that there is a difference in how the compression is chunked and recombined both on the sending side and possibly on the receiving side
 
 ## Investigation
-This repo has two python scripts `gz.py` and `br.py` They each have a sequence of byte strings captured using wireshard along with timing information. Each script progressively decmpresses the bytes mimicing what the networks layer would do on the client computer when receiving these packets.
+This repo has two python scripts `gz.py` and `br.py` They each have a sequence of byte strings captured using wireshark along with timing information. Each script progressively decmpresses the bytes mimicing what the networks layer would do on the client computer when receiving these packets.
 
 ## Summary
 Brotli witholds newline characters in some cases to be delivered with the next large block of data. This is problematic for RSC which relies on newline termination to know when it can safely processing bytes receieved (there are some exceptions where bytelength is checked instead but this does not apply to htis particular issue).
